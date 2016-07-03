@@ -1,0 +1,184 @@
+body {
+  font-family: 'niveau-grotesk', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  font-size: 12px;
+  text-rendering: optimizeLegibility;
+}
+
+.page {
+  position: relative;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  background: white;
+  color: #202428;
+  animation: willkommen 0.3s cubic-bezier(0.55, 0, 0.1, 1);
+}
+
+.error-message {
+  align-self: center;
+  flex: 1;
+  text-align: center;
+}
+
+.error-message span {
+  display: block;
+  line-height: 1.4em;
+}
+
+.error-message__emoji {
+  font-size: 36px;
+}
+
+.error-message__title {
+  font-size: 24px;
+  color: #202428;
+  font-weight: 900;
+}
+
+.error-message__copy {
+  font-size: 18px;
+  color: #b1b1b1;
+  width: 540px;
+  margin: 12px auto 12px;
+}
+
+.error-message__waiting {
+  font-size: 18px;
+  font-weight: 900;
+  animation: waiting 0.5s linear infinite;
+}
+
+@keyframes waiting {
+    0% {
+      opacity: 0.3;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0.3;
+    }
+}
+
+a.error-message__link {
+  color: #3498db;
+  text-decoration: none;
+  padding: 12px 18px;
+  border-radius: 5px;
+  margin-top: 12px;
+  display: inline-block;
+  border: 1px solid #3498db;
+  font-size: 14px;
+  transition: background-color .1s, color .1s;
+}
+
+a.error-message__link:hover {
+  background-color: #3498db;
+  color: white;
+}
+
+@keyframes willkommen {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+}
+
+@media (max-width: 1023px) {
+    .page {
+      flex-direction: column;
+    }
+}
+
+.result {
+  display: flex;
+  flex: 1;
+  text-align: center;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+.value {
+  font-size: 90px;
+  font-weight: 900;
+	margin: 10px 0 12px;
+}
+
+.label,
+.goal {
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.label,
+.goal,
+.value {
+  color: #D3D5D7;
+  transition: color 0.2s;
+}
+
+.page:hover .result .value,
+.page:hover .result .label,
+.page:hover .result .goal {
+  color: #D3D5D7;
+}
+
+.primo .value,
+.page:hover .result:hover .value {
+  color: #202428;
+}
+
+.primo .label,
+.primo .goal,
+.page:hover .result:hover .label,
+.page:hover .result:hover .goal {
+  color: #D3D5D7;
+}
+
+.unit {
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.progress-meter {
+  position: absolute;
+  width: 100%;
+  height: 7px;
+  left: 0;
+  bottom: 0;
+  background: #FFD32C;
+  transform: translateX(-100%);
+  transition: transform 0.5s cubic-bezier(0.55, 0, 0.1, 1);
+}
+
+.progress-percent {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  padding: 0 15px 15px 0;
+  font-size: 24px;
+  color: #202428;
+  font-weight: 800;
+}
+
+.timestamp {
+  box-sizing: border-box;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 700;
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  top: 0;
+  left: 0;
+  padding: 30px;
+  z-index: 1;
+  color: #D3D5D7;
+}
