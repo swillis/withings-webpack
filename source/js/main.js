@@ -1,9 +1,9 @@
 import React from 'react';
 import withingsApi from 'withings-api';
-import jquery from 'jquery';
 import ReactDOM from 'react-dom';
-import jqueryNumerator from 'jquery-numerator';
+import Fetch from 'whatwg-fetch';
 import _ from 'lodash';
+import CountTo from 'react-count-to';
 
 // Get the todays's date
 let today = new Date();
@@ -58,11 +58,11 @@ var Distance = React.createClass({
     var stepsInMeters = ((floorDistance) / (this.props.steps));
     var distanceGoal = (Math.floor((stepsInMeters) * (goal)));
 
-    $('.distance').numerator({
-      duration: numeratorDuration,
-      toValue: floorDistance,
-      delimiter: ','
-    })
+    // $('.distance').numerator({
+    //   duration: numeratorDuration,
+    //   toValue: floorDistance,
+    //   delimiter: ','
+    // })
 
     return (
       <div className="result">
@@ -71,7 +71,10 @@ var Distance = React.createClass({
         </div>
 
         <div className="value">
-          <span className="distance">0</span><span className="unit">m</span>
+          <span className="distance">
+            <CountTo to={floorDistance} speed={1000} delay={50} />
+          </span>
+          <span className="unit">m</span>
         </div>
 
         <div className="goal">
@@ -85,11 +88,6 @@ var Distance = React.createClass({
 // Steps
 var Steps = React.createClass({
   render: function() {
-    $('.steps').numerator({
-      duration: numeratorDuration,
-      toValue: (this.props.steps),
-      delimiter: ','
-    })
 
     return (
       <div className="result primo">
@@ -98,7 +96,9 @@ var Steps = React.createClass({
         </div>
 
         <div className="value">
-          <span className="steps">0</span>
+          <span className="steps">
+            <CountTo to={this.props.steps} speed={1000} delay={50} />
+          </span>
         </div>
 
         <div className="goal">
@@ -115,12 +115,6 @@ var Calories = React.createClass({
     var floorTotalCalories = Math.floor(this.props.totalCalories);
     var floorCalories = Math.floor(this.props.calories);
 
-    $('.calories').numerator({
-      duration: numeratorDuration,
-      toValue: floorCalories,
-      delimiter: ','
-    })
-
     return (
       <div className="result">
         <div className="label">
@@ -128,7 +122,10 @@ var Calories = React.createClass({
         </div>
 
         <div className="value">
-          <span className="calories">0</span><span className="unit">kcal</span>
+          <span className="calories">
+            <CountTo to={floorCalories} speed={1000} delay={50} />
+          </span>
+          <span className="unit">kcal</span>
         </div>
 
         <div className="goal">
@@ -166,13 +163,6 @@ var ProgressMeter = React.createClass({
       progressBarColour = yellow;
     }
 
-    // Numeratorrr
-    $('.progress-percent-value').numerator({
-      duration: numeratorDuration,
-      toValue: progressBarPercentage,
-      delimiter: ','
-    })
-
     // Progress bar stylez
     var divStyle = {
       transform: 'translateX(-' + (100 - progressBarPosition) + '%)',
@@ -181,7 +171,9 @@ var ProgressMeter = React.createClass({
 
     return (
       <div className="progress-meter" style={divStyle}>
-        <span className="progress-percent"><span className="progress-percent-value"></span>%</span>
+        <span className="progress-percent"><span className="progress-percent-value">
+          <CountTo to={progressBarPercentage} speed={1000} delay={50} />
+        </span>%</span>
       </div>
     );
   }
@@ -189,44 +181,21 @@ var ProgressMeter = React.createClass({
 
 // Results container
 var ResultBox = React.createClass({
-  getInitialState: function() {
-    return {
-      steps: '0',
-      distance: '0',
-      calories: '0',
-      totalCalories: '0',
-    };
-  },
-
-  componentDidMount: function() {
-    $.get(this.props.source, function(result) {
-      var urlResults = result;
-      if (this.isMounted()) {
-        this.setState({
-          body: urlResults.body,
-          steps: urlResults.body.steps,
-          distance: urlResults.body.distance,
-          calories: urlResults.body.calories,
-          totalCalories: urlResults.body.totalcalories,
-        });
-      }
-    }.bind(this));
-  },
 
   render: function() {
     return (
       <div className="page">
-        <Distance distance={this.state.distance}
-        steps={this.state.steps}/>
+        <Distance distance={this.props.distance}
+        steps={this.props.steps}/>
 
-        <Steps steps={this.state.steps}/>
+      <Steps steps={this.props.steps}/>
 
-        <Calories calories={this.state.calories}
-        totalCalories={this.state.totalCalories}/>
+        <Calories calories={this.props.calories}
+        totalCalories={this.props.totalCalories}/>
 
         <TimeStamp date={dateForApp}/>
 
-        <ProgressMeter steps={this.state.steps}/>
+        <ProgressMeter steps={this.props.steps}/>
       </div>
     );
   }
@@ -263,24 +232,40 @@ var ErrorMessage = React.createClass({
 var Page = React.createClass({
 
   getInitialState: function() {
+    const fakeData = {
+      calories: 47.24,
+      date: "2016-07-03",
+      distance: 1187.19,
+      elevation: 0,
+      intense: 0,
+      moderate: 240,
+      soft: 2400,
+      steps: 1356,
+      timezone: "Europe/London",
+      totalcalories: 1102.25,
+    }
     return {
-        body: {},
+        data: fakeData,
     };
   },
 
   componentDidMount: function() {
-    $.get(this.props.source, function(result) {
-      var urlResults = result;
-      if (this.isMounted()) {
-        this.setState({
-          body: urlResults.body,
-        });
-      }
-    }.bind(this));
+    const self = this;
+
+    // fetch(this.props.source)
+    //   .then(function(response) {
+    //     return response.json()
+    //   }).then(function(json) {speed
+    //     self.setState({
+    //       data: json.body
+    //     })
+    //   }).catch(function(ex) {
+    //     console.log('parsing failed', ex)
+    //   })
   },
 
   render: function() {
-    if (_.isEmpty(this.state.body)) {
+    if (_.isEmpty(this.state.data)) {
       return (
         <div>
           <WaitingMessage />
@@ -290,7 +275,7 @@ var Page = React.createClass({
     else {
       return (
         <div>
-          <ResultBox source={activityUrl}/>
+          <ResultBox steps={ this.state.data.steps } distance={ this.state.data.distance } calories={ this.state.data.calories } totalCalories={ this.state.data.totalcalories }/>
         </div>
       );
     }

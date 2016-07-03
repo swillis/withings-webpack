@@ -12,6 +12,18 @@
     "babel-core": "^6.10.4",
     "babel-loader": "^6.2.4",
     "babel-preset-es2015": "^6.9.0",
-    "webpack": "^1.13.1"
+    "babel-preset-react": "^6.11.1",
+    "copy-webpack-plugin": "^3.0.1",
+    "webpack": "^1.13.1",
+    "webpack-dev-server": "^1.14.1"
+  },
+  "dependencies": {
+    "lodash": "^4.13.1",
+    "normalize.css": "^4.2.0",
+    "react": "^15.2.0",
+    "react-count-to": "^0.4.2",
+    "react-dom": "^0.14.0",
+    "whatwg-fetch": "^1.0.0",
+    "withings-api": "^0.1.2"
   }
 }
