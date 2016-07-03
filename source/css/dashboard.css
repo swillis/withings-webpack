@@ -34,7 +34,7 @@ body {
 .error-message__title {
   font-size: 24px;
   color: #202428;
-  font-weight: 900;
+  font-weight: 400;
 }
 
 .error-message__copy {
@@ -46,7 +46,7 @@ body {
 
 .error-message__waiting {
   font-size: 18px;
-  font-weight: 900;
+  font-weight: 400;
   animation: waiting 0.5s linear infinite;
 }
 
@@ -88,97 +88,144 @@ a.error-message__link:hover {
     }
 }
 
-@media (max-width: 1023px) {
-    .page {
-      flex-direction: column;
-    }
-}
-
 .result {
   display: flex;
   flex: 1;
-  text-align: center;
+  text-align: left;
   flex-direction: column;
   justify-content: center;
   position: relative;
   z-index: 1;
+	padding: 0 100px;
 }
 
 .value {
-  font-size: 90px;
-  font-weight: 900;
-	margin: 10px 0 12px;
+  font-size: 60px;
+  font-weight: 400;
+	margin: 12px 0;
+	color: #202428;
 }
 
 .label,
 .goal {
-  text-transform: uppercase;
-  font-weight: 700;
+  font-weight: 400;
   letter-spacing: 1px;
-}
-
-.label,
-.goal,
-.value {
-  color: #D3D5D7;
-  transition: color 0.2s;
-}
-
-.page:hover .result .value,
-.page:hover .result .label,
-.page:hover .result .goal {
-  color: #D3D5D7;
-}
-
-.primo .value,
-.page:hover .result:hover .value {
-  color: #202428;
-}
-
-.primo .label,
-.primo .goal,
-.page:hover .result:hover .label,
-.page:hover .result:hover .goal {
-  color: #D3D5D7;
+	color: #B0B6BB;
 }
 
 .unit {
-  font-size: 24px;
-  font-weight: 800;
+  font-size: 48px;
+  font-weight: 400;
 }
 
 .progress-meter {
   position: absolute;
-  width: 100%;
-  height: 7px;
+  width: 0%;
+  height: 5px;
   left: 0;
   bottom: 0;
   background: #FFD32C;
-  transform: translateX(-100%);
-  transition: transform 0.5s cubic-bezier(0.55, 0, 0.1, 1);
+  transition: width 800ms cubic-bezier(0.55, 0, 0.1, 1);
 }
 
 .progress-percent {
-  position: fixed;
+  position: absolute;
   right: 0;
   bottom: 0;
   padding: 0 15px 15px 0;
   font-size: 24px;
   color: #202428;
-  font-weight: 800;
+  font-weight: 400;
 }
 
 .timestamp {
   box-sizing: border-box;
-  text-transform: uppercase;
   letter-spacing: 1px;
-  font-weight: 700;
+  font-weight: 400;
   position: absolute;
   width: 100%;
   text-align: center;
   top: 0;
   left: 0;
-  padding: 30px;
+  padding: 24px;
   z-index: 1;
-  color: #D3D5D7;
+  color: #B0B6BB;
+}
+
+.loader,
+.loader:before,
+.loader:after {
+  background: #F0F0F1;
+  -webkit-animation: load1 1s infinite ease-in-out;
+  animation: load1 0.8s infinite ease-in-out;
+  width: 1em;
+  height: 4em;
+}
+
+.loader:before,
+.loader:after {
+  position: absolute;
+  top: 0;
+  content: '';
+}
+
+.loader:before {
+  left: -2em;
+  animation-delay: -0.32s;
+}
+
+.loader {
+  color: #F0F0F1;
+  text-indent: -9999em;
+  margin: 88px auto;
+  position: relative;
+  font-size: 6px;
+  transform: translateZ(0);
+  animation-delay: -0.16s;
+}
+
+.loader:after {
+  left: 2em;
+}
+
+@-webkit-keyframes load1 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 0;
+    height: 4em;
+  }
+
+  40% {
+    box-shadow: 0 -2em;
+    height: 5em;
+  }
+}
+
+@keyframes load1 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 0;
+    height: 4em;
+  }
+
+  40% {
+    box-shadow: 0 -2em;
+    height: 5em;
+  }
+}
+
+@media (max-width: 1023px) {
+    .page {
+      flex-direction: column;
+    }
+
+		.timestamp {
+			display: none;
+		}
+
+		.result {
+			padding: 0 48px;
+		}
 }
