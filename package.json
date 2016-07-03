@@ -21,7 +21,6 @@
     "lodash": "^4.13.1",
     "normalize.css": "^4.2.0",
     "react": "^15.2.0",
-    "react-count-to": "^0.4.2",
     "react-dom": "^0.14.0",
     "whatwg-fetch": "^1.0.0",
     "withings-api": "^0.1.2"
