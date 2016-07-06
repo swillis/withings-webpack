@@ -7,7 +7,7 @@ module.exports = {
   ],
   output: {
     path: __dirname + '/dist',
-    publicPath: '/assets/',
+    publicPath: '/dist/',
     filename: 'app.js'
   },
   module: {
@@ -27,7 +27,7 @@ module.exports = {
       modulesDirectories: ["node_modules"]
   },
   plugins: [
-    new CopyWebpackPlugin([{ from: './index.html' }]),
+    // new CopyWebpackPlugin([{ from: './index.html' }]),
 		new CopyWebpackPlugin([{ from: './source/css/' }]),
   ],
 };
